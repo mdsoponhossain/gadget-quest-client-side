@@ -1,0 +1,54 @@
+[
+    {
+        "category": "mobile",
+        "img": "https://i.ibb.co/GtnyBjY/featured-1.png",
+        "name": "Smartphone X",
+        "tags": [
+            "smartphone",
+            "technology",
+            "mobile"
+        ],
+        "upvote": 120,
+        "downvote": 10,
+        "upload_time": "2023-11-24T12:30:00Z"
+    },
+    {
+        "category": "pc",
+        "img": "https://i.ibb.co/PwdZTZr/featured-2.jpg",
+        "name": "Gaming PC Z",
+        "tags": [
+            "gaming",
+            "computer",
+            "pc"
+        ],
+        "upvote": 90,
+        "downvote": 5,
+        "upload_time": "2023-11-24T13:15:00Z"
+    },
+    {
+        "category": "laptop",
+        "img": "https://i.ibb.co/87MQ0PP/featured-3.jpg",
+        "name": "UltraBook Y",
+        "tags": [
+            "ultrabook",
+            "laptop",
+            "portable"
+        ],
+        "upvote": 80,
+        "downvote": 8,
+        "upload_time": "2023-11-24T14:00:00Z"
+    },
+    {
+        "category": "camera",
+        "img": "https://i.ibb.co/8dpL2T3/featured-4.jpg",
+        "name": "Digital Camera A",
+        "tags": [
+            "camera",
+            "photography",
+            "digital"
+        ],
+        "upvote": 110,
+        "downvote": 15,
+        "upload_time": "2023-11-24T14:45:00Z"
+    }
+]
