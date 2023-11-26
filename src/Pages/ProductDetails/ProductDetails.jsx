@@ -57,6 +57,7 @@ const ProductDetails = () => {
     }
 
     const voteHandle = async (vote)=>{
+        console.log('hello')
         const castVote = {vote:vote}
         const res = await axiosPublic.patch(`/products/vote/${_id}`,castVote)
         console.log('up vote cast:',res.data)

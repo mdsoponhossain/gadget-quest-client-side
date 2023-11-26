@@ -7,7 +7,7 @@ const Products = () => {
     const axiosPublic = useAxiosPublic();
  
 
-    const {data: products=[]} = useQuery({
+    const {data: products=[],refetch} = useQuery({
         queryKey:['products'],
         queryFn: async ()=>{
             const res = await axiosPublic.get('/products');
@@ -19,7 +19,7 @@ const Products = () => {
     return (
         <div className="md:mt-[200px]" >
             <div className="grid md:gap-2 lg:gap-3 md:grid-cols-2 lg:grid-cols-3">
-                {products.map((item,index)=><Product key={index} item={item} ></Product>)}
+                {products.map((item,index)=><Product key={index} item={item} refetch={refetch} ></Product>)}
             </div>
             
         </div>
