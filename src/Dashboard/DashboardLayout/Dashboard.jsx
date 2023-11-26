@@ -1,15 +1,17 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
+import useUserRole from "../../Hooks/useUserRole";
 
 
 const Dashboard = () => {
-
-
-    const userRole = 'admin'
+   
+    const {userRole} = useUserRole();
+    console.log('user role is:',userRole)
+   
     const dashboardMenu = <>
 
         {
-            userRole === 'user' ? <>
-                <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
+            userRole?.role === 'user' ? <>
+                
                 <li><NavLink to='/dashboard/myProfile'>My Profile</NavLink></li>
                 <li><NavLink to='/dashboard/myProducts'>My Products</NavLink></li>
                 <li><NavLink to='/addProduct'>Add Product</NavLink></li>
@@ -20,8 +22,8 @@ const Dashboard = () => {
 
 
         {
-            userRole === 'moderator' &&  <>
-                <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
+            userRole?.role === 'moderator' &&  <>
+                
                 <li><NavLink to='/dashboard/myProfile'>My Profile</NavLink></li>
                 <li><NavLink to='/reviewsQueue'>Products Reviews Queue</NavLink></li>
                 <li><NavLink to='/reportedContent'>Reported Content</NavLink></li>
@@ -32,10 +34,10 @@ const Dashboard = () => {
 
 
         {
-            userRole === 'admin' && <>
-                <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
+            userRole?.role === 'admin' && <>
+                
                 <li><NavLink to='/dashboard/myProfile'>My Profile</NavLink></li>
-                <li><NavLink to='/manageUsers'>Manage Users</NavLink></li>
+                <li><NavLink to='/dashboard/manageUsers'>Manage Users</NavLink></li>
                 <li><NavLink to='/manageCoupons'>Manage Coupons</NavLink></li>
                 <li><NavLink to='/'>Go Home</NavLink></li>
 
@@ -63,7 +65,7 @@ const Dashboard = () => {
                 </div>
 
                 <div className="border-4 flex-1 h-[800px]">
-
+                    <Outlet></Outlet>
                 </div>
             </div>
 

@@ -41,7 +41,7 @@ const Registration = () => {
                         .then( async () => {
                             console.log('user profile is updated successfully');
                             // stored data in database ;
-                            const user= {name,email}
+                            const user= {name,email,role:'user'}
                             const res = await axiosPublic.post('/users',user) 
                             console.log(res.data,'from the userdb')
                         })

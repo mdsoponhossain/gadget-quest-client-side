@@ -7,7 +7,10 @@ import Login from "../Pages/Login/Login";
 import Registration from "../Pages/Registration/Registration";
 import Products from "../Pages/Products/Products";
 import ProductDetails from "../Pages/ProductDetails/ProductDetails";
-import Dashboard from "../Dashboard/Dashboard";
+import Dashboard from "../Dashboard/DashboardLayout/Dashboard";
+import MyProfile from "../Dashboard/Pages/MyProfile/MyProfile";
+import ManageUsers from "../Dashboard/Pages/ManageUsers/ManageUsers";
+
 
 
 
@@ -50,7 +53,12 @@ const router = createBrowserRouter([
         element:<Dashboard></Dashboard>,
         children:[
             {
-
+                path: 'myProfile',
+                element:<MyProfile></MyProfile>
+            },
+            {
+                path:'manageUsers',
+                element:<ManageUsers></ManageUsers>
             }
         ]
     }

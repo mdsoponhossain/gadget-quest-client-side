@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 
 
 
+// eslint-disable-next-line react/prop-types
 const AddReview = ({handleSubmitForm}) => {
 
     // console.log('the id in review',id)
@@ -14,23 +15,6 @@ const AddReview = ({handleSubmitForm}) => {
         handleSubmit,
         formState: { errors },
     } = useForm();
-
-
-    // const handleSubmitForm = async (data) => {
-    //     console.log(data)
-    //     const imageFile = { image: data.image[0] }
-    //     const res = await axiosPublic.post(img_hosting_api, imageFile, {
-    //         headers: { 'Content-Type': 'multipart/form-data' }
-    //     })
-
-    //     console.log('image hosting result data for review:', res.data.data.url);
-    //     if (res.data.success) {
-    //         const res = await axiosPublic.post('/products',data)
-    //         console.log('for review:',res.data)
-    //     }
-    // }
-
-
 
 
     return (
