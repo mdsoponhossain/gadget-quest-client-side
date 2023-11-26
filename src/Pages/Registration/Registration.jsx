@@ -38,8 +38,12 @@ const Registration = () => {
                     console.log(result.user);
                     //user is created successfully
                     updateUserProfile(userInfo)
-                        .then(() => {
-                            console.log('user profile is updated successfully')
+                        .then( async () => {
+                            console.log('user profile is updated successfully');
+                            // stored data in database ;
+                            const user= {name,email}
+                            const res = await axiosPublic.post('/users',user) 
+                            console.log(res.data,'from the userdb')
                         })
                         .catch(() => {
                             console.log('user profile updating failed')

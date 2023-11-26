@@ -8,11 +8,12 @@ import AddReview from "./AddReview";
 
 
 
+
 const ProductDetails = () => {
     const axiosPublic = useAxiosPublic();
     const { id } = useParams();
 
-    const { data: product = {} } = useQuery({
+    const { data: product = {},refetch } = useQuery({
         queryKey: ['product'],
         queryFn: async () => {
             const res = await axiosPublic.get(`/products/${id}`)
@@ -20,7 +21,53 @@ const ProductDetails = () => {
         }
     })
     console.log('single product details:', product);
-    const { name, description, img, title, reviews = [], tags = [], upvote, downvote } = product;
+    const { name, description, img, title, reviews = [], tags = [], upvote, downvote, _id } = product;
+
+
+    // add reviews page function ;
+
+
+
+    const img_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY
+    const img_hosting_api = `https://api.imgbb.com/1/upload?key=${img_hosting_key}`
+    console.log(img_hosting_key);
+    
+
+
+
+
+
+    const handleSubmitForm = async (data) => {
+        console.log(data)
+        const imageFile = { image: data.image[0] }
+        const res = await axiosPublic.post(img_hosting_api, imageFile, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
+
+        console.log('image hosting result data for review:', res.data.data.url);
+        data.image = res.data.data.url
+        if (res.data.success) {
+            const res = await axiosPublic.patch(`/products/${_id}`, data)
+            console.log('for review:', res.data)
+            if(res.data.modifiedCount > 0){
+                refetch();
+            }
+               
+        }
+    }
+
+    const voteHandle = async (vote)=>{
+        const castVote = {vote:vote}
+        const res = await axiosPublic.patch(`/products/vote/${_id}`,castVote)
+        console.log('up vote cast:',res.data)
+        if(res.data.modifiedCount > 0 ){
+            refetch();
+        }
+    }
+
+  
+
+
     return (
         <div className="md:mt-[103px]">
             <div className="card rounded-none my-5 h-fit p-3  md:h-[750px] bg-base-100 shadow-xl">
@@ -46,8 +93,8 @@ const ProductDetails = () => {
                     <div className="flex items-center  md:w-2/6 gap-2 md:gap-5">
                         <div className="flex-1 gap-2">
                             <div className="flex gap-2">
-                                <button className="btn btn-sm   md:text-2xl"><FaRegThumbsUp></FaRegThumbsUp>{upvote}</button>
-                                <button className="btn btn-sm md:text-2xl"><FaRegThumbsDown></FaRegThumbsDown>{downvote}</button>
+                                <button onClick={()=>voteHandle(1)}  className="btn btn-sm   md:text-2xl"><FaRegThumbsUp></FaRegThumbsUp>{upvote}</button>
+                                <button onClick={()=>voteHandle(-1)} className="btn btn-sm md:text-2xl"><FaRegThumbsDown></FaRegThumbsDown>{downvote}</button>
                             </div>
 
                         </div>
@@ -63,7 +110,7 @@ const ProductDetails = () => {
 
             {/* reviews sliders */}
             <div className="max-w-xl shadow-2xl my-20 bg-base-50 mx-auto">
-                <AddReview></AddReview>
+                <AddReview handleSubmitForm={handleSubmitForm}></AddReview>
             </div>
 
         </div>

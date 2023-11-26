@@ -1,7 +1,14 @@
 import { useForm } from "react-hook-form";
 
 
-const AddReview = () => {
+
+
+const AddReview = ({handleSubmitForm}) => {
+
+    // console.log('the id in review',id)
+
+   
+
     const {
         register,
         handleSubmit,
@@ -9,13 +16,21 @@ const AddReview = () => {
     } = useForm();
 
 
-    const handleSubmitForm = (data) => {
-        console.log(data)
-        const img = data.img[0];
-        console.log(img)
-    }
+    // const handleSubmitForm = async (data) => {
+    //     console.log(data)
+    //     const imageFile = { image: data.image[0] }
+    //     const res = await axiosPublic.post(img_hosting_api, imageFile, {
+    //         headers: { 'Content-Type': 'multipart/form-data' }
+    //     })
 
-    
+    //     console.log('image hosting result data for review:', res.data.data.url);
+    //     if (res.data.success) {
+    //         const res = await axiosPublic.post('/products',data)
+    //         console.log('for review:',res.data)
+    //     }
+    // }
+
+
 
 
     return (
@@ -27,7 +42,7 @@ const AddReview = () => {
                     <label className="label">
                         <span className="label-text">Name</span>
                     </label>
-                    <input type="text" {...register("name",{ required: true})} placeholder="Enter Your Name" className="input input-bordered" required/>
+                    <input type="text" {...register("name", { required: true })} placeholder="Enter Your Name" className="input input-bordered" required />
                 </div>
 
 
@@ -35,7 +50,7 @@ const AddReview = () => {
                     <label className="label">
                         <span className="label-text">Email</span>
                     </label>
-                    <input type="email" {...register("email",{ required: true})} placeholder="Enter Your Email" className="input input-bordered" required />
+                    <input type="email" {...register("email", { required: true })} placeholder="Enter Your Email" className="input input-bordered" required />
                 </div>
 
 
@@ -44,11 +59,11 @@ const AddReview = () => {
                         <label className="label">
                             <span className="label-text">Your Photo</span>
                         </label>
-                        <input type="file" {...register("img",{ required: true})} className="file-input w-full max-w-xs" />
+                        <input type="file" {...register("image", { required: true })} className="file-input w-full max-w-xs" />
                     </div>
                     <div className="form-control flex-1 mt-3">
                         <label>Rating Selection</label>
-                        <select className="h-12" {...register("rating",{ required: true})}>
+                        <select className="h-12" {...register("rating", { required: true })}>
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
@@ -62,7 +77,7 @@ const AddReview = () => {
                     <label className="label">
                         <span className="label-text">Your Comment</span>
                     </label>
-                    <textarea {...register("comment",{ required: true})} placeholder="Add Your Comments" className="textarea textarea-bordered textarea-md w-full " ></textarea>
+                    <textarea {...register("comment", { required: true })} placeholder="Add Your Comments" className="textarea textarea-bordered textarea-md w-full " ></textarea>
                 </div>
                 <div className="form-control mt-6">
                     <button className="btn btn-primary">Submit</button>
