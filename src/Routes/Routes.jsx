@@ -7,6 +7,8 @@ import Login from "../Pages/Login/Login";
 import Registration from "../Pages/Registration/Registration";
 import Products from "../Pages/Products/Products";
 import ProductDetails from "../Pages/ProductDetails/ProductDetails";
+import Dashboard from "../Dashboard/Dashboard";
+
 
 
 
@@ -17,31 +19,47 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <LayOut></LayOut>,
-        children:[
+        children: [
             {
-                path:'/',
-                element:<Home></Home>
+                path: '/',
+                element: <Home></Home>
             },
             {
                 path: '/login',
-                element:<Login></Login>
+                element: <Login></Login>
             },
             {
-                path:'/registration',
-                element:<Registration></Registration>
+                path: '/registration',
+                element: <Registration></Registration>
             },
             {
                 path: '/products',
-                element:<Products></Products>
+                element: <Products></Products>
             },
             {
                 path: 'products/:id',
                 element: <ProductDetails></ProductDetails>
             }
-            
+
         ]
     },
-]);
+
+    // dashboard routes
+    {
+        path: 'dashboard',
+        element:<Dashboard></Dashboard>,
+        children:[
+            {
+
+            }
+        ]
+    }
+
+]
+ );
+
+
+
 
 
 export default router
