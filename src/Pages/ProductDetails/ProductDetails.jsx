@@ -86,9 +86,7 @@ const ProductDetails = () => {
                         <FaStar className="text-orange-500 text-xl inline mb-[5px]" ></FaStar>
                     </span>
                     <span>
-                        {
-                            tags.map((tag, index) => <span className="ml-1 font-semibold" key={index}>#{tag}</span>)
-                        }
+                       #{tags}
                     </span>
                     <p className="text-lg">{description}</p>
                     <div className="flex items-center  md:w-2/6 gap-2 md:gap-5">

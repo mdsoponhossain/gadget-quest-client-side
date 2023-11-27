@@ -5,18 +5,12 @@ import { useForm } from "react-hook-form";
 
 // eslint-disable-next-line react/prop-types
 const AddReview = ({handleSubmitForm}) => {
-
     // console.log('the id in review',id)
-
-   
-
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
-
-
     return (
         <div>
             <form className="card-body bg-slate-100" onSubmit={handleSubmit(handleSubmitForm)}>

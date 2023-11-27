@@ -22,10 +22,10 @@ const Navbar = () => {
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/products' >Products</NavLink></li>
         {
-            user ? '' :  <>
-            <li><NavLink to='/login' >LogIn</NavLink></li>
-            <li><NavLink to='/registration' >Registration</NavLink></li>
-        </>
+            user ? '' : <>
+                <li><NavLink to='/login' >LogIn</NavLink></li>
+                <li><NavLink to='/registration' >Registration</NavLink></li>
+            </>
         }
     </>
 
@@ -46,7 +46,10 @@ const Navbar = () => {
                     <div className=" w-full">
 
                         <div className="flex justify-between w-3/5" >
-                            <div className="flex-1 px-2 mx-2">GadgetQuest</div>
+                            <div className="flex items-center lg:ml-12 ">
+                                <img className="w-12 h-12" src="https://i.ibb.co/C9vq4Pj/logo-tech-modified.png" alt="" />
+                                <div className="flex-1 px-2 mx-2">GadgetQuest</div>
+                            </div>
                             <div className="flex-none hidden lg:block">
                                 <ul className="menu menu-horizontal">
                                     {/* Navbar menu content here */}
@@ -66,7 +69,7 @@ const Navbar = () => {
                                         </label>
                                         <ul tabIndex={0} className="dropdown-content z-50 menu p-2 shadow bg-base-100 rounded-box w-52">
                                             <li>{user?.displayName}</li>
-                                            <li><Link to='/dashboard'><button>Dashboard</button></Link></li>
+                                            <li><Link to='/dashboard/myProfile'><button>Dashboard</button></Link></li>
                                             <li><button onClick={handleLogout}>LogOut</button></li>
                                         </ul>
                                     </div>

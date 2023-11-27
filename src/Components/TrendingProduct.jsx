@@ -15,8 +15,8 @@ const TrendingProduct = ({ item }) => {
                 <span className="text-3xl font-bold text-orange-300 "><IoIosTrendingUp></IoIosTrendingUp></span>
                 <p>Click the button to watch on Jetflix app.</p>
                 <div className="card-actions justify-end">
-                    <button className="btn btn-primary"><FaRegThumbsUp></FaRegThumbsUp>{upvote}</button>
-                    <button className="btn btn-primary"><FaRegThumbsDown></FaRegThumbsDown>{downvote}</button>
+                    <button className="btn text-2xl"><FaRegThumbsUp></FaRegThumbsUp>{upvote}</button>
+                    <button className="btn text-2xl"><FaRegThumbsDown></FaRegThumbsDown>{downvote}</button>
                 </div>
             </div>
         </div>
