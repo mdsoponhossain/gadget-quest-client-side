@@ -18,10 +18,20 @@ const AddProduct = () => {
     console.log(img_hosting_key);
 
 
+    const handleDate =(date)=>{
+        const datedata = date.target.value ;
+        console.log('The date is :',datedata)
+    }
+
 
 
     const handleSubmitForm = async (data) => {
-        console.log(data)
+        // console.log(data.date)
+
+        const dateString = data.date;
+        const dateObject = new Date(dateString);
+        const milliseconds = dateObject.getTime();
+        // console.log( milliseconds)
 
         const imageFile = { image: data.image[0] }
         const res = await axiosPublic.post(img_hosting_api, imageFile, {
@@ -42,7 +52,8 @@ const AddProduct = () => {
             reviews:[],
             upvote:0,
             downvote:0,
-            date:date
+            date:date,
+            number:milliseconds
         }
         console.log(product)
 
@@ -59,6 +70,14 @@ const AddProduct = () => {
         <div>
             <form className="card-body bg-slate-100" onSubmit={handleSubmit(handleSubmitForm)}>
                 <p className="text-center text-4xl my-6 ">Post For Reviews</p>
+                <div className="grid justify-end">
+                    <div className="w-3/4 mx-auto">
+                    <label className="label">
+                        <span className="label-text">Select Date</span>
+                    </label>
+                        <input {...register("date", { required: true })} type="date" name="date" id="" required />
+                    </div>
+                </div>
                
                 <div className="form-control">
                     <label className="label">
@@ -101,7 +120,7 @@ const AddProduct = () => {
                     <textarea {...register("description", { required: true })} placeholder="Add Product Description" className="textarea textarea-bordered textarea-md w-full " ></textarea>
                 </div>
                 <div className="form-control mt-6">
-                    <button className="btn btn-primary">Submit</button>
+                    <button className="btn bg-[#0cc4b0] text-white hover:bg-[#1b776c]">Submit</button>
                 </div>
             </form>
         </div>

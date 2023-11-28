@@ -4,12 +4,17 @@ import Product from "../../Components/Shared/Navbar/Product";
 import { useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { RxDoubleArrowRight,RxDoubleArrowLeft } from 'react-icons/rx';
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 
 
 const Products = () => {
     const axiosPublic = useAxiosPublic();
-    const { totalProduct } = useLoaderData();
+    const axiosSecure = useAxiosSecure();
+    // const { totalProduct } = useLoaderData();
+    const [totalProduct, setTotalProduct] = useState(0);
+
+
     console.log('productscount by loader', totalProduct);
     const [currentPage, setCurrentPage] = useState(0)
 
@@ -36,17 +41,21 @@ const Products = () => {
     // });
 
     const [loading ,setLoading] = useState(false);
+    const [search, setSearch] = useState('')
     const [products, setProducts] = useState([]);
     const status = 'approved'
 
 
     useEffect(()=>{
-        axiosPublic.get(`/products?status=${status}&currentPage=${currentPage}&itemsPerPage=${itemsPerPage}`)
+        axiosSecure.get(`/products?status=${status}&currentPage=${currentPage}&itemsPerPage=${itemsPerPage}&search=${search}`)
         .then(res=>{
             console.log(res.data)
-            setProducts(res.data)
+            setProducts(res.data.cursor);
+            setTotalProduct(res.data.totalCount)
         })
-    },[currentPage,itemsPerPage,axiosPublic,loading])
+    },[currentPage,itemsPerPage,axiosSecure,loading,search]);
+
+    console.log('set the all the all products:',products )
 
 
 
@@ -71,6 +80,12 @@ const Products = () => {
             setLoading(!loading)
         }
     }
+   
+    const handleSearch =e=>{
+        e.preventDefault();
+        const searchText = e.target.search.value ;
+        setSearch(searchText)
+    }
 
 
 
@@ -79,7 +94,19 @@ const Products = () => {
     console.log('products data:', products)
     return (
         <div className="md:mt-[200px]" >
-            <div className="grid md:gap-2 lg:gap-3 md:grid-cols-2 lg:grid-cols-3">
+
+            <div className="bg-slate-300 my-7">
+
+                <form onSubmit={handleSearch} className="w-1/2 mx-auto h-8">
+                   <input name="search" type="text" />
+                    <button className="btn btn-primary" >submit</button>
+                </form>
+
+            </div>
+
+
+
+            <div className="grid md:gap-2 lg:gap-3 md:grid-cols-2 lg:grid-cols-4">
                 {products.map((item, index) => <Product key={index} item={item} /* refetch={refetch} */ loading={loading} setLoading={setLoading} ></Product>)}
             </div>
 

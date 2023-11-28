@@ -12,6 +12,10 @@ import MyProfile from "../Dashboard/Pages/MyProfile/MyProfile";
 import ManageUsers from "../Dashboard/Pages/ManageUsers/ManageUsers";
 import AddProduct from "../Dashboard/Pages/AddProduct/AddProduct";
 import ProductsReviewQueue from "../Dashboard/Pages/ProductsReviewQueue/ProductsReviewQueue";
+import ReportedProducts from "../Dashboard/Pages/ReportedProducts/ReportedProducts";
+import ManageCoupon from "../Dashboard/Pages/ManageCoupon/ManageCoupon";
+import MyProducts from "../Dashboard/Pages/MyProducts/MyProducts";
+import PrivateRoute from "../PrivateRoutes/PrivateRoute/PrivateRoute";
 
 
 
@@ -44,7 +48,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'products/:id',
-                element: <ProductDetails></ProductDetails>
+                element: <PrivateRoute> <ProductDetails></ProductDetails> </PrivateRoute>
             }
 
         ]
@@ -57,19 +61,31 @@ const router = createBrowserRouter([
         children:[
             {
                 path: 'myProfile',
-                element:<MyProfile></MyProfile>
+                element:<PrivateRoute> <MyProfile></MyProfile> </PrivateRoute>
             },
             {
                 path:'manageUsers',
-                element:<ManageUsers></ManageUsers>
+                element:<PrivateRoute> <ManageUsers></ManageUsers> </PrivateRoute>
             },
             {
                 path: 'addProduct',
-                element:<AddProduct></AddProduct>
+                element:<PrivateRoute> <AddProduct></AddProduct> </PrivateRoute>
             },
             {
                 path:'reviewsQueue',
-                element:<ProductsReviewQueue></ProductsReviewQueue>
+                element:<PrivateRoute> <ProductsReviewQueue></ProductsReviewQueue> </PrivateRoute>
+            },
+            {
+                path: 'reportedProducts',
+                element:<PrivateRoute> <ReportedProducts></ReportedProducts> </PrivateRoute>
+            },
+            {
+                path: 'manageCoupon',
+                element: <PrivateRoute> <ManageCoupon></ManageCoupon> </PrivateRoute>
+            },
+            {
+                path: 'myproducts',
+                element: <PrivateRoute> <MyProducts></MyProducts> </PrivateRoute>
             }
         ]
     }

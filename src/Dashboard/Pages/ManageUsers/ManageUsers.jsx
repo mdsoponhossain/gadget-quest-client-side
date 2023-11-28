@@ -1,18 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useEffect, useState } from "react";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 
 
 const ManageUsers = () => {
 
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     const [userRole, setuserRole] = useState('')
 
     const { data: users = [],refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await axiosPublic.get('/users')
+            const res = await axiosSecure.get('/users')
             return res.data;
         }
     })
@@ -25,7 +27,7 @@ const ManageUsers = () => {
 
     const playRoleHandle =(id)=>{
         console.log('user id:',id,'role:',userRole);
-        axiosPublic.post(`/users-role/${id}`,{role:userRole})
+        axiosSecure.post(`/users-role/${id}`,{role:userRole})
          .then(res=>{
              console.log(res.data)
              if(res.data.modifiedCount){

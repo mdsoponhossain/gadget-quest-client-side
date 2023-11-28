@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { Link } from "react-router-dom";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 
 
@@ -8,11 +9,12 @@ import { Link } from "react-router-dom";
 const ProductsReviewQueue = () => {
 
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
 
     const { data: productsForAccepts = [], refetch } = useQuery({
         queryKey: ['productsForAccept'],
         queryFn: async () => {
-            const res = await axiosPublic.get('/user-post-products')
+            const res = await axiosSecure.get('/user-post-products')
             return res.data
         }
     });
@@ -25,7 +27,7 @@ const ProductsReviewQueue = () => {
 
     const approveTheProduct = async (id) => {
         const status = "approved"
-        const res = await axiosPublic.patch(`/products-approved/${id}?status=${status}`)
+        const res = await axiosSecure.patch(`/products-approved/${id}?status=${status}`)
         console.log(res.data);
         if (res.data.modifiedCount > 0) {
             refetch();
@@ -34,12 +36,20 @@ const ProductsReviewQueue = () => {
 
 
     const rejectTheProduct = async (id) => {
-        const res = await axiosPublic.delete(`/products-rejected/${id}`)
+        const res = await axiosSecure.delete(`/products-rejected/${id}`)
         console.log("deletion the rejected product:",res.data);
         if(res.data.deletedCount){
             refetch();
         }
     }
+
+    // add-feature
+    const addToFeatured = async (id) =>{
+        const product = allProducts.find( (item)=> item._id === id);
+        console.log('will add to be featured items:',product)
+        const res = await axiosSecure.post('/add-feature',product)
+        console.log('featured featured fetured:',res.data) // if added : insertedId
+    } 
 
 
     return (
@@ -65,9 +75,9 @@ const ProductsReviewQueue = () => {
                                 allProducts.map((item, index) => <tr key={index}>
                                     <th>{index + 1}</th>
                                     <td>{item.name}</td>
-                                    <td><Link to={`/ products / ${ item._id }`} ><button className="btn p-2 btn-sm  lg:mx-4 ">Details</button></Link></td>
+                                    <td><Link to={`/products/${item._id}`} ><button className="btn p-2 btn-sm  lg:mx-4 ">Details</button></Link></td>
                                     
-                                    <td><button className=" btn p-2 btn-sm  lg:mx-4 " >Add</button></td>
+                                    <td><button onClick={()=>addToFeatured(item._id)} className=" btn p-2 btn-sm  lg:mx-4 " >Add</button></td>
                                    {
                                     item.status === 'pending' ?  <td><button  onClick={()=>approveTheProduct(item._id)} className="btn p-2 btn-sm  lg:mx-4 " >Accept</button></td> : <td></td>
                                    }
@@ -78,20 +88,10 @@ const ProductsReviewQueue = () => {
                                 </tr>)
                             }
 
-
-
                         </tbody>
                     </table>
                 </section>
-
-
-
-
-
             </div>
-
-
-
         </div>
     );
 };

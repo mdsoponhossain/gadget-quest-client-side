@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 
 // eslint-disable-next-line react/prop-types
-const AddReview = ({handleSubmitForm}) => {
+const AddReview = ({handleSubmitForm,reviewerContainer,userInfo}) => {
     // console.log('the id in review',id)
     const {
         register,
@@ -58,7 +58,10 @@ const AddReview = ({handleSubmitForm}) => {
                     <textarea {...register("comment", { required: true })} placeholder="Add Your Comments" className="textarea textarea-bordered textarea-md w-full " ></textarea>
                 </div>
                 <div className="form-control mt-6">
-                    <button className="btn btn-primary">Submit</button>
+                    {
+                        reviewerContainer?.includes(userInfo) ? <button disabled className="btn bg-[#0cc4b0] text-white hover:bg-[#1b776c]">Submit</button> : <button className="btn bg-[#0cc4b0] text-white hover:bg-[#1b776c]">Submit</button>
+                    }
+                    
                 </div>
             </form>
         </div>

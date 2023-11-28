@@ -1,15 +1,18 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import SocialLogin from "../../Components/Shared/SocialLogin/SocialLogin";
+import { useNavigate } from "react-router-dom";
 
 
 const Registration = () => {
 
-    const { handleSignUp, updateUserProfile, googleLoginHandle } = useAuth()
+    const { handleSignUp, updateUserProfile } = useAuth()
     const img_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY
     const img_hosting_api = `https://api.imgbb.com/1/upload?key=${img_hosting_key}`
     console.log(img_hosting_key);
     const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate();
 
     const {
         register,
@@ -38,12 +41,13 @@ const Registration = () => {
                     console.log(result.user);
                     //user is created successfully
                     updateUserProfile(userInfo)
-                        .then( async () => {
+                        .then(async () => {
                             console.log('user profile is updated successfully');
                             // stored data in database ;
-                            const user= {name,email,role:'user'}
-                            const res = await axiosPublic.post('/users',user) 
-                            console.log(res.data,'from the userdb')
+                            const user = { name, email, role: 'user' }
+                            const res = await axiosPublic.post('/users', user)
+                            console.log(res.data, 'from the userdb')
+                            navigate('/')
                         })
                         .catch(() => {
                             console.log('user profile updating failed')
@@ -57,17 +61,6 @@ const Registration = () => {
     }
 
 
-    const handleGoogleLogin = () => {
-        googleLoginHandle()
-            .then(() => {
-                console.log('google login is successfull');
-            })
-            .catch(() => {
-                console.log('google login failed')
-            })
-
-    }
-
 
 
 
@@ -77,6 +70,9 @@ const Registration = () => {
         <div className="card font-serif  shrink-0 w-full max-w-lg mx-auto mt-5 md:mt-40 lg:mt-60  shadow-2xl bg-base-100">
             <form className="card-body" onSubmit={handleSubmit(handleFormSubmit)}>
                 <p className="text-center text-4xl my-6 ">Registration Form</p>
+                <div className="grid justify-center">
+                    <SocialLogin></SocialLogin>
+                </div>
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Name</span>
@@ -105,10 +101,10 @@ const Registration = () => {
                     <input type="file" {...register("image", { required: true })} className="file-input file-input-bordered w-full max-w-xs" required />
                 </div>
                 <div className="form-control mt-6">
-                    <button className="btn btn-primary">Register</button>
+                    <button className="btn bg-[#0cc4b0] text-white hover:bg-[#114c45]">Register</button>
                 </div>
             </form>
-            <button onClick={handleGoogleLogin} className="btn btn-primary">Continue with Google</button>
+
         </div>
     );
 };

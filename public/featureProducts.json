@@ -1,54 +1,58 @@
 [
     {
         "category": "mobile",
-        "img": "https://i.ibb.co/GtnyBjY/featured-1.png",
         "name": "Smartphone X",
-        "tags": [
-            "smartphone",
-            "technology",
-            "mobile"
-        ],
+        "img": "https://i.ibb.co/GtnyBjY/featured-1.png",
+        "title": "The Next Generation iPhone",
+        "description": "The iPhone 14 Pro redefines mobile excellence with its stunning Super Retina XDR display, powerful A16 Bionic chip, and an advanced camera system featuring ProRAW and ProRes video recording capabilities.",
+        "tags": "mobile",
+        "status": "approved",
         "upvote": 120,
         "downvote": 10,
-        "upload_time": "2023-11-24T12:30:00Z"
+        "reviews": [],
+        "date": "11/09/2023",
+        "number": 1699466400000
     },
     {
         "category": "pc",
-        "img": "https://i.ibb.co/PwdZTZr/featured-2.jpg",
         "name": "Gaming PC Z",
-        "tags": [
-            "gaming",
-            "computer",
-            "pc"
-        ],
+        "img": "https://i.ibb.co/PwdZTZr/featured-2.jpg",
+        "title": "Ultimate Gaming PC",
+        "description": "The Alienware Aurora R13 delivers an unparalleled gaming experience with its powerful Intel Core i9 processor, NVIDIA GeForce RTX graphics, and customizable AlienFX lighting. Dominate the gaming arena with this performance-packed desktop.",
+        "tags": "pc",
+        "status": "approved",
         "upvote": 90,
         "downvote": 5,
-        "upload_time": "2023-11-24T13:15:00Z"
+        "reviews": [],
+        "date": "11/09/2023",
+        "number": 1699466400000
     },
     {
         "category": "laptop",
-        "img": "https://i.ibb.co/87MQ0PP/featured-3.jpg",
         "name": "UltraBook Y",
-        "tags": [
-            "ultrabook",
-            "laptop",
-            "portable"
-        ],
+        "img": "https://i.ibb.co/87MQ0PP/featured-3.jpg",
+        "title": "Professional Powerhouse",
+        "description": "The MacBook Pro 16-inch is a professional powerhouse with a stunning Retina display, up to 64GB of memory, and the M1 Pro or M1 Max chip for unparalleled performance. Perfect for demanding tasks like video editing and graphic design.",
+        "tags": "laptop",
+        "status": "approved",
         "upvote": 80,
         "downvote": 8,
-        "upload_time": "2023-11-24T14:00:00Z"
+        "reviews": [],
+        "date": "11/10/2023",
+        "number": 1699552800000
     },
     {
         "category": "camera",
-        "img": "https://i.ibb.co/8dpL2T3/featured-4.jpg",
         "name": "Digital Camera A",
-        "tags": [
-            "camera",
-            "photography",
-            "digital"
-        ],
+        "img": "https://i.ibb.co/8dpL2T3/featured-4.jpg",
+        "title": "Mirrorless Masterpiece",
+        "description": "The Sony Alpha 7 IV is a mirrorless masterpiece, featuring a high-resolution sensor, fast autofocus, and 4K video capabilities. Capture incredible moments with exceptional image quality, whether you're a professional photographer or an enthusiast.",
+        "tags": "camera",
+        "status": "approved",
         "upvote": 110,
         "downvote": 15,
-        "upload_time": "2023-11-24T14:45:00Z"
+        "reviews": [],
+        "date": "11/11/2023",
+        "number": 1699639200000
     }
 ]

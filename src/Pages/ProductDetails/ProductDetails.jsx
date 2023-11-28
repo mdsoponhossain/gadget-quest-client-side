@@ -3,6 +3,8 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { useParams } from "react-router-dom";
 import { FaRegThumbsUp, FaRegThumbsDown, FaStar } from 'react-icons/fa';
 import AddReview from "./AddReview";
+import useAuth from "../../Hooks/useAuth";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 
 
@@ -11,17 +13,23 @@ import AddReview from "./AddReview";
 
 const ProductDetails = () => {
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     const { id } = useParams();
+    const { user,loading } = useAuth();
+    const userInfo = user?.email;
 
-    const { data: product = {},refetch } = useQuery({
+    const { data: product = {}, refetch } = useQuery({
         queryKey: ['product'],
+        enabled: !loading, 
         queryFn: async () => {
             const res = await axiosPublic.get(`/products/${id}`)
             return res.data;
         }
     })
     console.log('single product details:', product);
-    const { name, description, img, title, reviews = [], tags = [], upvote, downvote, _id } = product;
+    const reviewerContainer = product.reviewer
+    const { name, description, img, title, reviews = [], tags = [], upvote, downvote, _id, voter } = product;
+    console.log('check the user has liked or voted', voter?.includes(userInfo))
 
 
     // add reviews page function ;
@@ -31,7 +39,7 @@ const ProductDetails = () => {
     const img_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY
     const img_hosting_api = `https://api.imgbb.com/1/upload?key=${img_hosting_key}`
     console.log(img_hosting_key);
-    
+
 
 
 
@@ -45,28 +53,29 @@ const ProductDetails = () => {
         })
 
         console.log('image hosting result data for review:', res.data.data.url);
-        data.image = res.data.data.url
+        data.image = res.data.data.url ;
+        
         if (res.data.success) {
-            const res = await axiosPublic.patch(`/products/${_id}`, data)
+            const res = await axiosSecure.patch(`/products/${_id}`, data)
             console.log('for review:', res.data)
-            if(res.data.modifiedCount > 0){
+            if (res.data.modifiedCount > 0) {
                 refetch();
             }
-               
+
         }
     }
 
-    const voteHandle = async (vote)=>{
+    const voteHandle = async (vote) => {
         console.log('hello')
-        const castVote = {vote:vote}
-        const res = await axiosPublic.patch(`/products/vote/${_id}`,castVote)
-        console.log('up vote cast:',res.data)
-        if(res.data.modifiedCount > 0 ){
+        const castVote = { vote: vote, userInfo }
+        const res = await axiosSecure.patch(`/products/vote/${_id}`, castVote)
+        console.log('up vote cast:', res.data)
+        if (res.data.modifiedCount > 0) {
             refetch();
         }
     }
 
-  
+
 
 
     return (
@@ -86,14 +95,28 @@ const ProductDetails = () => {
                         <FaStar className="text-orange-500 text-xl inline mb-[5px]" ></FaStar>
                     </span>
                     <span>
-                       #{tags}
+                        #{tags}
                     </span>
                     <p className="text-lg">{description}</p>
                     <div className="flex items-center  md:w-2/6 gap-2 md:gap-5">
                         <div className="flex-1 gap-2">
                             <div className="flex gap-2">
-                                <button onClick={()=>voteHandle(1)}  className="btn btn-sm   md:text-2xl"><FaRegThumbsUp></FaRegThumbsUp>{upvote}</button>
-                                <button onClick={()=>voteHandle(-1)} className="btn btn-sm md:text-2xl"><FaRegThumbsDown></FaRegThumbsDown>{downvote}</button>
+                                {
+                                    voter?.includes(userInfo) ? <>
+                                        <button disabled onClick={() => voteHandle(1)} className="btn text-2xl"><FaRegThumbsUp></FaRegThumbsUp>{upvote}</button>
+                                        <button disabled onClick={() => voteHandle(-1)} className="btn text-2xl"><FaRegThumbsDown></FaRegThumbsDown>{downvote}</button>
+
+                                    </> :
+
+                                        <>
+                                            <button onClick={() => voteHandle(1)} className="btn text-2xl"><FaRegThumbsUp></FaRegThumbsUp>{upvote}</button>
+                                            <button onClick={() => voteHandle(-1)} className="btn text-2xl"><FaRegThumbsDown></FaRegThumbsDown>{downvote}</button>
+
+                                        </>
+
+
+
+                                }
                             </div>
 
                         </div>
@@ -109,7 +132,7 @@ const ProductDetails = () => {
 
             {/* reviews sliders */}
             <div className="max-w-xl shadow-2xl my-20 bg-base-50 mx-auto">
-                <AddReview handleSubmitForm={handleSubmitForm}></AddReview>
+                <AddReview userInfo={userInfo} reviewerContainer={reviewerContainer} handleSubmitForm={handleSubmitForm}></AddReview>
             </div>
 
         </div>

@@ -23,7 +23,7 @@ const MyProfile = () => {
                 <p className="text-xl my-1">{user?.email}</p>
                 <span className="text-xl">Status: verified</span>
                 <div className="card-actions justify-center">
-                    <button className="btn btn-secondary">Subscribe</button>
+                    <button className="btn bg-[#0cc4b0] text-white hover:bg-[#1b776c]">Subscribe</button>
                 </div>
             </div>
         </div>

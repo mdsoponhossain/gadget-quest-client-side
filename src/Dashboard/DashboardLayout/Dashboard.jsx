@@ -13,7 +13,7 @@ const Dashboard = () => {
             userRole?.role === 'user' ? <>
                 
                 <li><NavLink to='/dashboard/myProfile'>My Profile</NavLink></li>
-                <li><NavLink to='/dashboard/myProducts'>My Products</NavLink></li>
+                <li><NavLink to='/dashboard/myproducts'>My Products</NavLink></li>
                 <li><NavLink to='/dashboard/addProduct'>Add Product</NavLink></li>
                 <li><NavLink to='/'>Go Home</NavLink></li>
 
@@ -26,7 +26,7 @@ const Dashboard = () => {
                 
                 <li><NavLink to='/dashboard/myProfile'>My Profile</NavLink></li>
                 <li><NavLink to='/dashboard/reviewsQueue'>Products Reviews Queue</NavLink></li>
-                <li><NavLink to='/reportedContent'>Reported Content</NavLink></li>
+                <li><NavLink to='/dashboard/reportedProducts'>Reported Content</NavLink></li>
                 <li><NavLink to='/'>Go Home</NavLink></li>
 
             </>
@@ -38,7 +38,7 @@ const Dashboard = () => {
                 
                 <li><NavLink to='/dashboard/myProfile'>My Profile</NavLink></li>
                 <li><NavLink to='/dashboard/manageUsers'>Manage Users</NavLink></li>
-                <li><NavLink to='/manageCoupons'>Manage Coupons</NavLink></li>
+                <li><NavLink to='/dashboard/manageCoupon'>Manage Coupons</NavLink></li>
                 <li><NavLink to='/'>Go Home</NavLink></li>
 
             </>
