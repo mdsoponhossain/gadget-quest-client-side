@@ -1,23 +1,30 @@
 import { Link } from "react-router-dom";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useAuth from "../../Hooks/useAuth";
 
 
-const FeaturedProduct = ({ item, setReload,reload }) => {
+const FeaturedProduct = ({ item, setReload, reload }) => {
 
-    const { img, category, name, tags, upvote, downvote, upload_time, _id } = item;
+    const { img, category, name, tags, upvote, downvote, upload_time, _id, voter } = item;
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
+    const { user } = useAuth();
+    const userInfo = user?.email;
 
 
     const voteHandle = async (vote) => {
-        const castVote = { vote: vote }
-        const res = await axiosPublic.patch(`/featured-products/vote/${_id}`, castVote)
+        const castVote = { vote: vote, userInfo }
+        const res = await axiosSecure.patch(`/featured-products/vote/${_id}`, castVote)
         console.log('up vote cast:', res.data)
         if (res.data.modifiedCount > 0) {
             setReload(!reload)
-            
+
         }
     }
+
+    console.log('the user have votted ?:', voter.includes(userInfo))
 
 
     return (
@@ -32,8 +39,26 @@ const FeaturedProduct = ({ item, setReload,reload }) => {
                 <Link to={`/products/${_id}`}><h2 className="card-title text-blue-600 underline">{name}</h2></Link>
                 <p>#{tags}</p>
                 <div className="card-actions justify-end">
-                    <button onClick={() => voteHandle(1)} className="btn text-2xl"><FaRegThumbsUp></FaRegThumbsUp>{upvote}</button>
-                    <button onClick={() => voteHandle(-1)} className="btn text-2xl"><FaRegThumbsDown></FaRegThumbsDown>{downvote}</button>
+                    {
+                        voter.includes(userInfo) ? <>
+
+                            <button disabled onClick={() => voteHandle(1)} className="btn text-2xl"><FaRegThumbsUp></FaRegThumbsUp>{upvote}</button>
+                            <button disabled onClick={() => voteHandle(-1)} className="btn text-2xl"><FaRegThumbsDown></FaRegThumbsDown>{downvote}</button>
+
+                        </>
+
+                            :
+
+                            <>
+
+                                <button onClick={() => voteHandle(1)} className="btn text-2xl"><FaRegThumbsUp></FaRegThumbsUp>{upvote}</button>
+                                <button onClick={() => voteHandle(-1)} className="btn text-2xl"><FaRegThumbsDown></FaRegThumbsDown>{downvote}</button>
+
+                            </>
+                    }
+
+
+
                 </div>
             </div>
         </div>

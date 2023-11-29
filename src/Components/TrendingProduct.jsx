@@ -1,9 +1,28 @@
 import { IoIosTrendingUp } from "react-icons/io";
-import { FaRegThumbsUp,FaRegThumbsDown } from 'react-icons/fa';
+import { FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
+import useAuth from "../Hooks/useAuth";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
-const TrendingProduct = ({ item }) => {
+const TrendingProduct = ({ item, refetch }) => {
 
-    const { img, category, name, tags, upvote, downvote, upload_time } = item;
+    const { img, category, name, tags, upvote, downvote, date, _id, voter } = item;
+    const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
+    const userInfo = user?.email;
+
+    const handleVote = async (vote) => {
+        const castVote = { vote: vote, userInfo };
+        console.log(castVote)
+        const res = await axiosSecure.patch(`/trending-products/vote/${_id}`, castVote)
+        console.log('the data from the trending products:', res.data)
+        if (res.data.modifiedCount > 0) {
+            refetch();
+        }
+
+    }
+
+
+
     return (
         <div className="card h-60 card-side bg-base-100 shadow-xl">
             <div className="w-60">
@@ -15,8 +34,24 @@ const TrendingProduct = ({ item }) => {
                 <span className="text-3xl font-bold text-orange-300 "><IoIosTrendingUp></IoIosTrendingUp></span>
                 <p>Click the button to watch on Jetflix app.</p>
                 <div className="card-actions justify-end">
-                    <button className="btn text-2xl"><FaRegThumbsUp></FaRegThumbsUp>{upvote}</button>
-                    <button className="btn text-2xl"><FaRegThumbsDown></FaRegThumbsDown>{downvote}</button>
+                    {
+                        voter.includes(userInfo) ? <>
+
+                            <button disabled onClick={() => handleVote(1)} className="btn text-2xl"><FaRegThumbsUp></FaRegThumbsUp>{upvote}</button>
+                            <button disabled onClick={() => handleVote(-1)} className="btn text-2xl"><FaRegThumbsDown></FaRegThumbsDown>{downvote}</button>
+
+                        </>
+                            :
+                            <>
+
+                                <button onClick={() => handleVote(1)} className="btn text-2xl"><FaRegThumbsUp></FaRegThumbsUp>{upvote}</button>
+                                <button onClick={() => handleVote(-1)} className="btn text-2xl"><FaRegThumbsDown></FaRegThumbsDown>{downvote}</button>
+
+                            </>
+                    }
+
+
+
                 </div>
             </div>
         </div>

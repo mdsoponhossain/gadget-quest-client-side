@@ -70,5 +70,62 @@
         "reviews": [],
         "date": "11/11/2023",
         "number": 1699639200000
+    },
+    {
+        "category": "mobiles",
+        "name": "Samsung Galaxy Z Fold 4",
+        "img": "https://i.ibb.co/vBB0tV0/photo-15.jpg",
+        "title": "Foldable Innovation",
+        "description": "The Samsung Galaxy Z Fold 4 continues the legacy of foldable innovation with a large foldable display, improved durability, and powerful internals, providing a unique and versatile mobile experience.",
+        "tags": "mobile",
+        "status": "approved",
+        "reported": false,
+        "reportedUser":[],
+        "voter": [],
+        "reviewer": [],
+        "upvote": 20,
+        "downvote": 4,
+        "reviews": [
+            {
+                "username": "FoldableFanatic",
+                "rating": 5,
+                "comment": "Impressive foldable design and powerful performance."
+            },
+            {
+                "username": "TechInnovator",
+                "rating": 4,
+                "comment": "A step forward in foldable technology, but still a bit pricey."
+            }
+        ]
+        
+    },
+    {
+        "category": "mobiles",
+        "name": "Nokia X100",
+        "img": "https://i.ibb.co/wWWSScr/photo-12.jpg",
+        "title": "Pure Android Experience",
+        "description": "The Nokia X100 delivers a pure Android experience with regular updates, a large display, and a reliable performance, making it an ideal choice for Android enthusiasts.",
+        "tags": "mobile",
+        "status": "approved",
+        "reported": false,
+        "reportedUser":[],
+        "voter": [],
+        "reviewer": [],
+        "upvote": 10,
+        "downvote": 1,
+        "reviews": [
+            {
+                "username": "NokiaFanatic",
+                "rating": 5,
+                "comment": "Great build quality and a clean Android interface."
+            },
+            {
+                "username": "TechExplorer456",
+                "rating": 3,
+                "comment": "Decent performance, but the camera could be improved."
+            }
+        ]
+        
     }
+
 ]

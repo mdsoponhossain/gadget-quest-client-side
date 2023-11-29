@@ -20,7 +20,7 @@ const TrendingProducts = () => {
     // console.log(trendingProducts)
     const axiosPublic = useAxiosPublic();
 
-    const { data: trendingProducts = [] } = useQuery({
+    const { data: trendingProducts = [], refetch } = useQuery({
         queryKey: ['trendingProducts'],
         queryFn: async () => {
             const res = await axiosPublic.get('/trending-products')
@@ -40,7 +40,7 @@ const TrendingProducts = () => {
 
             <div className="grid md:grid-cols-2 lg:gap-3 p-2">
                 {
-                    trendingProducts.map((item, index) => <TrendingProduct key={index} item={item}></TrendingProduct>)
+                    trendingProducts.map((item, index) => <TrendingProduct key={index} refetch={refetch} item={item}></TrendingProduct>)
                 }
             </div>
             <div className="card-actions justify-center my-5">
