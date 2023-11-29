@@ -38,7 +38,8 @@ const ProductsReviewQueue = () => {
     const rejectTheProduct = async (id) => {
         const res = await axiosSecure.delete(`/products-rejected/${id}`)
         console.log("deletion the rejected product:",res.data);
-        if(res.data.deletedCount){
+        if(res.data.result.deletedCount > 0){
+            
             refetch();
         }
     }

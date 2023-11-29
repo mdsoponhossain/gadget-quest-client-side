@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
@@ -11,10 +11,14 @@ const FeaturedProduct = ({ item, setReload, reload }) => {
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
+    const navigate = useNavigate();
     const userInfo = user?.email;
 
 
     const voteHandle = async (vote) => {
+        if(!userInfo){
+            return navigate('/login')
+        }
         const castVote = { vote: vote, userInfo }
         const res = await axiosSecure.patch(`/featured-products/vote/${_id}`, castVote)
         console.log('up vote cast:', res.data)

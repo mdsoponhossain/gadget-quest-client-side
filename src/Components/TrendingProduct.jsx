@@ -2,15 +2,20 @@ import { IoIosTrendingUp } from "react-icons/io";
 import { FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
 import useAuth from "../Hooks/useAuth";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
+import { useNavigate } from "react-router-dom";
 
 const TrendingProduct = ({ item, refetch }) => {
 
     const { img, category, name, tags, upvote, downvote, date, _id, voter } = item;
     const { user } = useAuth();
+    const navigate = useNavigate();
     const axiosSecure = useAxiosSecure();
     const userInfo = user?.email;
 
     const handleVote = async (vote) => {
+        if(!userInfo){
+            navigate('/login')
+        }
         const castVote = { vote: vote, userInfo };
         console.log(castVote)
         const res = await axiosSecure.patch(`/trending-products/vote/${_id}`, castVote)

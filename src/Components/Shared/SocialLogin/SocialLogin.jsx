@@ -1,3 +1,4 @@
+import {  useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
@@ -5,6 +6,8 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 const SocialLogin = () => {
     const {  googleLoginHandle } = useAuth();
     const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate();
+    const location = useLocation();
     const handleGoogleLogin = () => {
         googleLoginHandle()
             .then(async (result) => {
@@ -15,6 +18,7 @@ const SocialLogin = () => {
                 const user = { name, email, role: 'user' }
                 const res = await axiosPublic.post('/users', user)
                 console.log(res.data, 'from the userdb')
+                navigate(location?.state ? location.state : '/')
             })
             .catch(() => {
                 console.log('google login failed')

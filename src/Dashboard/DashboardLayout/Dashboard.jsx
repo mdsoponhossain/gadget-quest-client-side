@@ -55,7 +55,7 @@ const Dashboard = () => {
 
     return (
         <div className="max-w-7xl mx-auto border-4 ">
-            <h3 className="text-3xl text-center font-bold">This is the dashboard page</h3>
+            <h3 className="text-3xl bg-green-300 p-2 mx-2 text-center md:text-5xl font-bold">Dashboard</h3>
             <div className="flex w-full gap-3 md:gap-5 p-2">
                 <div className="border-4 w-3/12 min-h-screen bg-green-300">
                     <ul className="menu">

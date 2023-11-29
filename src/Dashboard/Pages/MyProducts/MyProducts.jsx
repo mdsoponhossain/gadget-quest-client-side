@@ -26,7 +26,15 @@ const MyProducts = () => {
 
     return (
         <div>
-            <h3 className="text-3xl">This is my products page</h3>
+            {
+                myProducts.length === 0 ? <h3 className="text-3xl text-center font-bold uppercase">You haven't Post any product yet</h3>
+                    :
+                    <h3 className="text-3xl text-center font-bold uppercase">Your posted product for review</h3>
+            }
+            <div className="text-center  w-fit mt-3 mx-auto">
+                <span className="text-md font-bold">Note:</span> <span>Your product will be displayed in the product page after accepting by moderator</span>
+            </div>
+
 
             <div>
                 <div className="overflow-x-auto">
@@ -43,22 +51,22 @@ const MyProducts = () => {
                         </thead>
                         <tbody>
                             {
-                                myProducts.map((item,index)=><tr key={index} >
-                                <th>1</th>
-                                <td>{item.name}</td>
-                                <td><Link to={`/products/${item._id}`} >Details</Link></td>
-                                <td>
-                                <td><Link to={`/dashboard/updateProduct/${item._id}`} ><button className="btn">Update</button></Link></td>
-                                    
-                                </td>
-                                <td><span className={item.status === 'pending' ?  "bg-red-600 p-2 rounded text-white lg:mx-4 hover" : "bg-[#0cc4b0] p-2 btn-sm text-white lg:mx-4 hover:bg-[#228a7e]" } >{item.status}</span></td>
-                            </tr>  )
+                                myProducts.map((item, index) => <tr key={index} >
+                                    <th>1</th>
+                                    <td>{item.name}</td>
+                                    <td><Link to={`/products/${item._id}`} >Details</Link></td>
+                                    <td>
+                                        <td><Link to={`/dashboard/updateProduct/${item._id}`} ><button className="btn">Update</button></Link></td>
+
+                                    </td>
+                                    <td><span className={item.status === 'pending' ? "bg-red-600 p-2 rounded text-white lg:mx-4 hover" : "bg-[#0cc4b0] p-2 btn-sm text-white lg:mx-4 hover:bg-[#228a7e]"} >{item.status}</span></td>
+                                </tr>)
                             }
-                            
-                            
-                           
+
+
+
                         </tbody>
-                        
+
                     </table>
                 </div>
             </div>

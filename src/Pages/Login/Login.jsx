@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from "../../Components/Shared/SocialLogin/SocialLogin";
 import useAuth from "../../Hooks/useAuth";
 
@@ -50,6 +50,7 @@ const Login = () => {
                 <div className="form-control mt-6">
                     <button className="btn bg-[#0cc4b0] text-white hover:bg-[#114c45]">Login</button>
                 </div>
+            <p>New here? please<Link to='/registration' className="text-blue-600 ml-4 text-lg font-bold underline">Register</Link></p>
             </form>
             
         </div>

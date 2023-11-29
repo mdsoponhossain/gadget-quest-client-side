@@ -49,6 +49,8 @@ const AddProduct = () => {
             tags:data.tags,
             status:'pending',
             reviews:[],
+            voter:[],
+            reviewer:[],
             upvote:0,
             downvote:0,
             date:date,

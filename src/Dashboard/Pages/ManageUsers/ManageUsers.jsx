@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import useAuth from "../../../Hooks/useAuth";
+
 
 
 
@@ -9,9 +11,10 @@ const ManageUsers = () => {
 
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
+    const {user:admin} = useAuth();
     const [userRole, setuserRole] = useState('')
 
-    const { data: users = [],refetch } = useQuery({
+    const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const res = await axiosSecure.get('/users')
@@ -20,28 +23,28 @@ const ManageUsers = () => {
     })
     console.log('user from the user collection:', users);
 
-    const playRole =(e)=>{
+    const playRole = (e) => {
         console.log(e.target.value);
         setuserRole(e.target.value);
     }
 
-    const playRoleHandle =(id)=>{
-        console.log('user id:',id,'role:',userRole);
-        axiosSecure.post(`/users-role/${id}`,{role:userRole})
-         .then(res=>{
-             console.log(res.data)
-             if(res.data.modifiedCount){
-                refetch()
-             }
-         })
-     }
+    const playRoleHandle = (id) => {
+        console.log('user id:', id, 'role:', userRole);
+        axiosSecure.post(`/users-role/${id}`, { role: userRole })
+            .then(res => {
+                console.log(res.data)
+                if (res.data.modifiedCount) {
+                    refetch()
+                }
+            })
+    }
 
 
 
 
     return (
         <div>
-            <h3 className="text-center text-xl font-bold">Manage Users</h3>
+            <h3 className="text-center text-xl font-bold ">Manage Users</h3>
             <div>
                 <div className="overflow-x-auto">
                     <table className="table">
@@ -53,11 +56,11 @@ const ManageUsers = () => {
                                         #
                                     </label>
                                 </th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Edit Role</th>
-                                <th>Apply Role</th>
-                                <th>User Role</th>
+                                <th className="text-xl font-bold" >Name</th>
+                                <th className="text-xl font-bold" >Email</th>
+                                <th className="text-xl font-bold" >Edit Role</th>
+                                <th className="text-xl font-bold" >Apply Role</th>
+                                <th className="text-xl font-bold" >User Role</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -74,19 +77,22 @@ const ManageUsers = () => {
                                         {user?.email}
                                     </td>
                                     <td> <label></label>
-                                        <form >
-                                            <select onChange={playRole}  defaultValue={user.role} className="h-12" >
-                                                <option value="user">user</option>
-                                                <option value="moderator">moderator</option>
-                                                
-                                            </select>
-                                        </form>
+                                        {
+                                            user?.email !== admin?.email && <form >
+                                                <select onChange={playRole} defaultValue={user.role} className="h-12" >
+                                                    <option value="user">user</option>
+                                                    <option value="moderator">moderator</option>
+
+                                                </select>
+                                            </form>
+                                        }
+
                                     </td>
                                     <td>
-                                    <button onClick={()=>playRoleHandle(user._id)} className="btn btn-ghost btn-xs">Confirm</button>
+                                        <button onClick={() => playRoleHandle(user._id)} className="btn  btn-xs btn-secondary">Confirm</button>
                                     </td>
                                     <th>
-                                        <button className="btn btn-ghost btn-xs">{user.role}</button>
+                                        <span className=" text-md font-bold ">{user.role}</span>
 
                                     </th>
                                 </tr>)

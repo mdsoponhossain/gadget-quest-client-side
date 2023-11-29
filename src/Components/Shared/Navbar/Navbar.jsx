@@ -48,7 +48,7 @@ const Navbar = () => {
                         <div className="flex justify-between w-3/5" >
                             <div className="flex items-center lg:ml-12 ">
                                 <img className="w-12 h-12" src="https://i.ibb.co/C9vq4Pj/logo-tech-modified.png" alt="" />
-                                <div className="flex-1 px-2 mx-2">GadgetQuest</div>
+                                <div className="flex-1 px-2 mx-2 md:text-xl text-bold text-[#1b776c]">GadgetQuest</div>
                             </div>
                             <div className="flex-none hidden lg:block">
                                 <ul className="menu menu-horizontal">

@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import SocialLogin from "../../Components/Shared/SocialLogin/SocialLogin";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 const Registration = () => {
@@ -103,6 +103,7 @@ const Registration = () => {
                 <div className="form-control mt-6">
                     <button className="btn bg-[#0cc4b0] text-white hover:bg-[#114c45]">Register</button>
                 </div>
+                <p>Have Account? please<Link to='/login' className="text-blue-600 ml-4 text-lg font-bold underline">Login</Link></p>
             </form>
 
         </div>
