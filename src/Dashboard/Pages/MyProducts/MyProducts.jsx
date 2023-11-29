@@ -48,7 +48,8 @@ const MyProducts = () => {
                                 <td>{item.name}</td>
                                 <td><Link to={`/products/${item._id}`} >Details</Link></td>
                                 <td>
-                                    <button className="btn">Update</button>
+                                <td><Link to={`/dashboard/updateProduct/${item._id}`} ><button className="btn">Update</button></Link></td>
+                                    
                                 </td>
                                 <td><span className={item.status === 'pending' ?  "bg-red-600 p-2 rounded text-white lg:mx-4 hover" : "bg-[#0cc4b0] p-2 btn-sm text-white lg:mx-4 hover:bg-[#228a7e]" } >{item.status}</span></td>
                             </tr>  )
@@ -57,6 +58,7 @@ const MyProducts = () => {
                             
                            
                         </tbody>
+                        
                     </table>
                 </div>
             </div>

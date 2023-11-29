@@ -16,6 +16,7 @@ import ReportedProducts from "../Dashboard/Pages/ReportedProducts/ReportedProduc
 import ManageCoupon from "../Dashboard/Pages/ManageCoupon/ManageCoupon";
 import MyProducts from "../Dashboard/Pages/MyProducts/MyProducts";
 import PrivateRoute from "../PrivateRoutes/PrivateRoute/PrivateRoute";
+import UpdateProduct from "../Dashboard/Pages/UpdateProduct/UpdateProduct";
 
 
 
@@ -70,6 +71,11 @@ const router = createBrowserRouter([
             {
                 path: 'addProduct',
                 element:<PrivateRoute> <AddProduct></AddProduct> </PrivateRoute>
+            },
+            {
+                path: 'updateProduct/:id',
+                element:<UpdateProduct></UpdateProduct>,
+                loader:({params})=>fetch(`http://localhost:5000/products/${params.id}`)
             },
             {
                 path:'reviewsQueue',
