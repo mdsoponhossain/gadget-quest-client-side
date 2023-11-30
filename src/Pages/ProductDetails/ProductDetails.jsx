@@ -43,11 +43,6 @@ const ProductDetails = () => {
     const img_hosting_api = `https://api.imgbb.com/1/upload?key=${img_hosting_key}`
     console.log(img_hosting_key);
 
-
-
-
-
-
     const handleSubmitForm = async (data) => {
         console.log(data)
         const imageFile = { image: data.image[0] }
@@ -115,10 +110,6 @@ const ProductDetails = () => {
                   })
             }
           });
-
-
-        
-        
     }
 
     

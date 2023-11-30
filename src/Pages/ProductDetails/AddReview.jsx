@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 
 // eslint-disable-next-line react/prop-types
 const AddReview = ({handleSubmitForm,reviewerContainer,userInfo}) => {
-    // console.log('the id in review',id)
+   
     const {
         register,
         handleSubmit,

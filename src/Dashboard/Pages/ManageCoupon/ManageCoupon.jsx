@@ -1,11 +1,10 @@
 
 import { useForm } from "react-hook-form";
-import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 
 const ManageCoupon = () => {
- const axiosPublic = useAxiosPublic()
+
  const axiosSecure = useAxiosSecure();
 
     const {
@@ -16,11 +15,8 @@ const ManageCoupon = () => {
 
 
     const handleSubmitForm = async (data) => {
-        console.log(data)
-
         const res = await axiosSecure.post('/add-coupon',data)
         console.log('coupon status:', res.data)
-        
         
     }
 

@@ -1,17 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAuth from "../../../Hooks/useAuth";
 import { Link } from "react-router-dom";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 
 const MyProducts = () => {
-
-    const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
     const { user, loading } = useAuth();
     const email = user.email;
-
     const { data: myProducts = [] } = useQuery({
         queryKey: ['myProducts'],
         enabled: !loading,

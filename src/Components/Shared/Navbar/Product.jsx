@@ -1,14 +1,13 @@
 import { FaRegThumbsUp, FaRegThumbsDown, FaBan } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import useAxiosPublic from '../../../Hooks/useAxiosPublic';
 import useAuth from '../../../Hooks/useAuth';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 
 
-const Product = ({ item,/* refetch */setLoading, loading }) => {
+const Product = ({ item,setLoading, loading }) => {
     const { img, category, name, tags, upvote, downvote, upload_time, _id, voter } = item;
-    const axiosPublic = useAxiosPublic();
+   
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
     const userInfo = user?.email;
