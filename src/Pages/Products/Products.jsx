@@ -9,30 +9,14 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 
 const Products = () => {
-    const axiosPublic = useAxiosPublic();
+    
     const axiosSecure = useAxiosSecure();
-    // const { totalProduct } = useLoaderData();
     const [totalProduct, setTotalProduct] = useState(0);
-
-
-    console.log('productscount by loader', totalProduct);
     const [currentPage, setCurrentPage] = useState(0)
-
-    console.log('the total product:', totalProduct)
     const itemsPerPage = 20;
     const totalPage = Math.ceil(parseFloat(totalProduct) / itemsPerPage)
     console.log('total page count :', totalPage)
     const pages = [...Array(totalPage).keys()];
-    console.log("pages:", pages);
-
-    
-
-
-   
-
-
-  
-
     const [loading ,setLoading] = useState(false);
     const [search, setSearch] = useState('')
     const [products, setProducts] = useState([]);
@@ -42,26 +26,21 @@ const Products = () => {
     useEffect(()=>{
         axiosSecure.get(`/products?status=${status}&currentPage=${currentPage}&itemsPerPage=${itemsPerPage}&search=${search}`)
         .then(res=>{
-            console.log(res.data)
             setProducts(res.data.cursor);
             setTotalProduct(res.data.totalCount)
         })
     },[currentPage,itemsPerPage,axiosSecure,loading,search]);
-
-    console.log('set the all the all products:',products )
-
-
-
+  
     const currentPageHandle = (number) => {
         setCurrentPage(number)
-        // refetch();
+       
         setLoading(!loading)
     }
 
     const previousBtnHandle = ()=>{
         if(currentPage > 0){
             setCurrentPage(currentPage - 1)
-            // refetch();
+           
             setLoading(!loading)
         }
     }
@@ -69,7 +48,7 @@ const Products = () => {
     const nextBtnHandle =()=>{
         if(currentPage < totalPage -1){
             setCurrentPage(currentPage + 1)
-            // refetch();
+           
             setLoading(!loading)
         }
     }
@@ -79,12 +58,7 @@ const Products = () => {
         const searchText = e.target.search.value ;
         setSearch(searchText)
     }
-
-
-
-
-
-    console.log('products data:', products)
+   
     return (
         <div className="md:mt-[100px]" >
 
