@@ -19,7 +19,7 @@ const Products = () => {
     const [currentPage, setCurrentPage] = useState(0)
 
     console.log('the total product:', totalProduct)
-    const itemsPerPage = 5;
+    const itemsPerPage = 20;
     const totalPage = Math.ceil(parseFloat(totalProduct) / itemsPerPage)
     console.log('total page count :', totalPage)
     const pages = [...Array(totalPage).keys()];
@@ -31,14 +31,7 @@ const Products = () => {
    
 
 
-    // const { data: products = [], refetch } = useQuery({
-    //     queryKey: ['products'],
-    //     queryFn: async () => {
-    //         const res = await axiosPublic.get(`/products?currentPage=${currentPage}&itemsPerPage=${itemsPerPage}`);
-    //         return res.data
-    //     }
-
-    // });
+  
 
     const [loading ,setLoading] = useState(false);
     const [search, setSearch] = useState('')
@@ -93,13 +86,13 @@ const Products = () => {
 
     console.log('products data:', products)
     return (
-        <div className="md:mt-[200px]" >
+        <div className="md:mt-[100px]" >
 
-            <div className="bg-slate-300 my-7">
+            <div className="bg-slate-300 h-32 ">
 
-                <form onSubmit={handleSearch} className="w-1/2 mx-auto h-8">
-                   <input name="search" type="text" />
-                    <button className="btn btn-primary" >submit</button>
+                <form onSubmit={handleSearch} className="w-3/4 md:w-[30%] pt-10 mx-auto h-8">
+                   <input name="search" className="pl-2" placeholder="Search tags..." type="text" />
+                    <button className="btn bg-[#0cc4b0] text-white  btn-sm hover:bg-[#09ad9b]" >submit</button>
                 </form>
 
             </div>

@@ -12,7 +12,7 @@ const FeaturedProducts = () => {
     const [reload, setReload] = useState(false)
 
     const handleSorting = (e) => {
-        console.log(e.target.value)
+        // console.log(e.target.value)
         setSort(e.target.value)
     }
 
@@ -21,7 +21,7 @@ const FeaturedProducts = () => {
     useEffect(() => {
         axiosPublic.get(`/featured-products?sortField=number&sortOrder=${sort}`)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setFeaturedProducts(res.data)
             })
     }, [sort,axiosPublic,reload])
@@ -39,7 +39,7 @@ const FeaturedProducts = () => {
 
     // })
 
-    console.log('data from the featured products:', featuredProducts)
+    // console.log('data from the featured products:', featuredProducts)
 
 
 

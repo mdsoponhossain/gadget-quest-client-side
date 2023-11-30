@@ -37,7 +37,8 @@ const TrendingProduct = ({ item, refetch }) => {
             <div className="card-body ">
                 <span className="card-title">{name}</span>
                 <span className="text-3xl font-bold text-orange-300 "><IoIosTrendingUp></IoIosTrendingUp></span>
-                <p>Click the button to watch on Jetflix app.</p>
+                <p>{item?.date}</p>
+                <span>{item?.title}</span>
                 <div className="card-actions justify-end">
                     {
                         voter.includes(userInfo) ? <>

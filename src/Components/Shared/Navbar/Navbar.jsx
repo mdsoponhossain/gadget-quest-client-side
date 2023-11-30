@@ -1,5 +1,6 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 
 
@@ -9,13 +10,35 @@ const Navbar = () => {
     console.log('user from the navbar:', user)
 
     const handleLogout = () => {
-        handleSignOut()
-            .then(() => {
-                console.log('logged out successfully completed')
-            })
-            .catch(() => {
-                console.log('logged out failed')
-            })
+
+        Swal.fire({
+            title: "Are you sure to logout?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes,"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                handleSignOut()
+                    .then(() => {
+                        console.log('logged out successfully completed');
+                        Swal.fire({
+                            title: "Log Out!",
+                            text: "You have logged out.",
+                            icon: "success"
+                        });
+
+                    })
+                    .catch(() => {
+                        console.log('logged out failed')
+                    })
+            }
+        });
+
+
+
     }
 
     const navItems = <>
@@ -100,3 +123,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+

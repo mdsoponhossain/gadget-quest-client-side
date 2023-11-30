@@ -21,14 +21,14 @@ const FeaturedProduct = ({ item, setReload, reload }) => {
         }
         const castVote = { vote: vote, userInfo }
         const res = await axiosSecure.patch(`/featured-products/vote/${_id}`, castVote)
-        console.log('up vote cast:', res.data)
+        // console.log('up vote cast:', res.data)
         if (res.data.modifiedCount > 0) {
             setReload(!reload)
 
         }
     }
 
-    console.log('the user have votted ?:', voter.includes(userInfo))
+    // console.log('the user have votted ?:', voter.includes(userInfo))
 
 
     return (
@@ -40,7 +40,13 @@ const FeaturedProduct = ({ item, setReload, reload }) => {
                 </div>
             }
             <div className="card-body">
-                <Link to={`/products/${_id}`}><h2 className="card-title text-blue-600 underline">{name}</h2></Link>
+                {
+                    item?.id ? <Link to={`/products/${item?.id}`}><h2 className="card-title text-blue-600 underline">{name}</h2></Link>
+                     : 
+                     <h2 className="card-title text-slate-600 ">{name}</h2>
+
+                }
+                
                 <p>#{tags}</p>
                 <div className="card-actions justify-end">
                     {

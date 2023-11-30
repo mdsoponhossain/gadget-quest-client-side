@@ -17,6 +17,10 @@ import ManageCoupon from "../Dashboard/Pages/ManageCoupon/ManageCoupon";
 import MyProducts from "../Dashboard/Pages/MyProducts/MyProducts";
 import PrivateRoute from "../PrivateRoutes/PrivateRoute/PrivateRoute";
 import UpdateProduct from "../Dashboard/Pages/UpdateProduct/UpdateProduct";
+import Payment from "../Components/Payment/Payment";
+import ErrorPage from "../Dashboard/Pages/AddProduct/ErrorPage/ErrorPage";
+import Statics from "../Dashboard/Pages/Statics/Statics";
+
 
 
 
@@ -29,6 +33,7 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <LayOut></LayOut>,
+        errorElement:<ErrorPage></ErrorPage>,
         children: [
             {
                 path: '/',
@@ -45,7 +50,8 @@ const router = createBrowserRouter([
             {
                 path: '/products',
                 element: <Products></Products>,
-                loader:()=>fetch('http://localhost:5000/products-count')
+                loader:()=>fetch('https://gadge-quest-server.vercel.app/products-count')
+                
             },
             {
                 path: 'products/:id',
@@ -59,14 +65,26 @@ const router = createBrowserRouter([
     {
         path: 'dashboard',
         element:<Dashboard></Dashboard>,
+        errorElement:<ErrorPage></ErrorPage>,
         children:[
             {
                 path: 'myProfile',
                 element:<PrivateRoute> <MyProfile></MyProfile> </PrivateRoute>
             },
             {
+                path: 'payment',
+                element:<Payment></Payment>
+               
+
+            },
+            {
                 path:'manageUsers',
                 element:<PrivateRoute> <ManageUsers></ManageUsers> </PrivateRoute>
+            },
+            {
+                path:'statics',
+                element:<Statics></Statics>,
+                loader:()=>fetch('https://gadge-quest-server.vercel.app/user-products-count')
             },
             {
                 path: 'addProduct',
@@ -75,7 +93,7 @@ const router = createBrowserRouter([
             {
                 path: 'updateProduct/:id',
                 element:<UpdateProduct></UpdateProduct>,
-                loader:({params})=>fetch(`http://localhost:5000/products/${params.id}`)
+                loader:({params})=>fetch(`https://gadge-quest-server.vercel.app/products/${params.id}`)
             },
             {
                 path:'reviewsQueue',

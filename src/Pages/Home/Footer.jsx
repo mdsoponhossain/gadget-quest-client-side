@@ -6,7 +6,7 @@ const Footer = () => {
             <footer className="footer p-10 bg-slate-800 text-white">
                 <aside>
                     <img className="w-12 h-12 ml-6" src="https://i.ibb.co/C9vq4Pj/logo-tech-modified.png" alt="" />
-                    <p>ACME Industries Ltd.<br />Providing reliable information since 1992</p>
+                    <p>GadgetQuest.com<br />Providing reliable tech information </p>
                 </aside>
                 <nav>
                     <header className="footer-title">Services</header>

@@ -3,6 +3,7 @@ import useAuth from "../../Hooks/useAuth";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import SocialLogin from "../../Components/Shared/SocialLogin/SocialLogin";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const Registration = () => {
@@ -44,9 +45,18 @@ const Registration = () => {
                         .then(async () => {
                             console.log('user profile is updated successfully');
                             // stored data in database ;
-                            const user = { name, email, role: 'user' }
+                            const user = { name, email, role: 'user',postInfo:[] }
                             const res = await axiosPublic.post('/users', user)
                             console.log(res.data, 'from the userdb')
+                            if(res.data.insertedId){
+                                Swal.fire({
+                                    position: "top-center",
+                                    icon: "success",
+                                    title: "Your registration  is successfully done",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                  });
+                            }
                             navigate('/')
                         })
                         .catch(() => {

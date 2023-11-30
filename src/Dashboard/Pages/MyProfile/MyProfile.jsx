@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import useUserRole from "../../../Hooks/useUserRole";
 
@@ -5,9 +6,9 @@ import useUserRole from "../../../Hooks/useUserRole";
 const MyProfile = () => {
 
 
-    const {user} = useAuth()
-    console.log(user)
-    const {userRole} = useUserRole();
+    const { user } = useAuth()
+    // console.log(user)
+    const { userRole } = useUserRole();
 
 
     return (
@@ -21,10 +22,24 @@ const MyProfile = () => {
                     <div className="badge badge-secondary">{userRole.role}</div>
                 </h2>
                 <p className="text-xl my-1">{user?.email}</p>
-                <span className="text-xl">Status: verified</span>
-                <div className="card-actions justify-center">
-                    <button className="btn bg-[#0cc4b0] text-white hover:bg-[#1b776c]">Subscribe</button>
-                </div>
+                {
+                    userRole?.role === 'admin' || userRole?.role === 'moderator' ? " " : <>
+
+
+                        {
+                            userRole?.status === 'verified' ? <span className="text-xl">Status: verified</span>
+                                :
+                                <div className="card-actions justify-center">
+                                    <Link to='/dashboard/payment'><button className="btn bg-[#0cc4b0] text-white hover:bg-[#1b776c]">Subscribe</button></Link>
+                                </div>
+
+                        }
+
+                    </>
+                }
+
+
+
             </div>
         </div>
 

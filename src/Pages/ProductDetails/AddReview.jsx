@@ -12,7 +12,7 @@ const AddReview = ({handleSubmitForm,reviewerContainer,userInfo}) => {
         formState: { errors },
     } = useForm();
     return (
-        <div>
+        <div className="h-[500px] max-w-xl my-20 mx-auto bg-slate-100">
             <form className="card-body bg-slate-100" onSubmit={handleSubmit(handleSubmitForm)}>
                 <p className="text-center text-4xl my-6 ">Add a review</p>
 

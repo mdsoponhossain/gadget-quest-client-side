@@ -1,6 +1,7 @@
 import {  useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 
 const SocialLogin = () => {
@@ -15,9 +16,17 @@ const SocialLogin = () => {
                 // stored data in database ;
                 const name = result.user.displayName
                 const email = result.user.email
-                const user = { name, email, role: 'user' }
+                const user = { name, email, role: 'user',postInfo:[] }
                 const res = await axiosPublic.post('/users', user)
                 console.log(res.data, 'from the userdb')
+                Swal.fire({
+                    position: "top-center",
+                    icon: "success",
+                    title: "Your login is successfully done",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+
                 navigate(location?.state ? location.state : '/')
             })
             .catch(() => {

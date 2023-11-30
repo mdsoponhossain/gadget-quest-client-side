@@ -3,6 +3,8 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 
 
@@ -29,12 +31,19 @@ const ManageUsers = () => {
     }
 
     const playRoleHandle = (id) => {
-        console.log('user id:', id, 'role:', userRole);
-        axiosSecure.post(`/users-role/${id}`, { role: userRole })
+        // console.log('user id:', id, 'role:', userRole);
+        axiosSecure.patch(`/users-role/${id}`, { role: userRole })
             .then(res => {
                 console.log(res.data)
                 if (res.data.modifiedCount) {
-                    refetch()
+                    Swal.fire({
+                        position: "top-center",
+                        icon: "success",
+                        title: "User role changed",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    refetch();
                 }
             })
     }
@@ -58,9 +67,9 @@ const ManageUsers = () => {
                                 </th>
                                 <th className="text-xl font-bold" >Name</th>
                                 <th className="text-xl font-bold" >Email</th>
-                                <th className="text-xl font-bold" >Edit Role</th>
+                                <th className="text-xl font-bold" >Select Role</th>
                                 <th className="text-xl font-bold" >Apply Role</th>
-                                <th className="text-xl font-bold" >User Role</th>
+                                <th className="text-xl font-bold" >Current Role</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -82,6 +91,7 @@ const ManageUsers = () => {
                                                 <select onChange={playRole} defaultValue={user.role} className="h-12" >
                                                     <option value="user">user</option>
                                                     <option value="moderator">moderator</option>
+                                                    <option value="admin">admin</option>
 
                                                 </select>
                                             </form>
@@ -89,7 +99,10 @@ const ManageUsers = () => {
 
                                     </td>
                                     <td>
-                                        <button onClick={() => playRoleHandle(user._id)} className="btn  btn-xs btn-secondary">Confirm</button>
+                                        {
+                                             user?.email !== admin?.email &&  <button onClick={() => playRoleHandle(user._id)} className="btn  btn-xs btn-secondary">Confirm</button>
+                                        }
+                                       
                                     </td>
                                     <th>
                                         <span className=" text-md font-bold ">{user.role}</span>

@@ -1,7 +1,9 @@
-import { useLoaderData, useParams } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 
 const UpdateProduct = () => {
@@ -9,8 +11,10 @@ const UpdateProduct = () => {
 
     const { user } = useAuth();
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     const { id } = useParams();
     const data = useLoaderData();
+    const navigate =useNavigate();
     // console.log('the id is for the update product info:', id, 'and the data is :', data.date);
 
     const {
@@ -34,7 +38,7 @@ const UpdateProduct = () => {
         const dateString = data.date;
         const dateObject = new Date(dateString);
         const milliseconds = dateObject.getTime();
-         console.log('date in miliseconds:', milliseconds, 'and Date:',data.date)
+        console.log('date in miliseconds:', milliseconds, 'and Date:', data.date)
 
         const imageFile = { image: data.image[0] }
         const res = await axiosPublic.post(img_hosting_api, imageFile, {
@@ -61,11 +65,20 @@ const UpdateProduct = () => {
         console.log(product)
 
         if (res.data.success) {
-            const res = axiosPublic.patch(`/users-post/product/${id}`, product)
-            console.log(res.data);
-            // if(res.data.modifiedCount > 0){
-
-            // }
+            const updateInfo = await axiosPublic.patch(`/users-post/product/${id}`, product)
+            console.log(updateInfo.data);
+            if (updateInfo.data.modifiedCount > 0) {
+                Swal.fire({
+                    position: "top-center",
+                    icon: "success",
+                    title: "Successfully product Info updated",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                navigate('/dashboard/myproducts')
+                   
+                
+            }
 
         }
 

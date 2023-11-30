@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import useAxiosPublic from '../../../Hooks/useAxiosPublic';
 import useAuth from '../../../Hooks/useAuth';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
 
 
 const Product = ({ item,/* refetch */setLoading, loading }) => {
@@ -25,11 +26,34 @@ const Product = ({ item,/* refetch */setLoading, loading }) => {
 
 
     const addReport = async () => {
-        console.log(_id)
-        const reporterInfo = { name: user?.displayName, email: user?.email };
-        console.log('reported user:', reporterInfo)
-        const res = await axiosSecure.patch(`/products/report/${_id}`, reporterInfo)
-        console.log('reported completed:', res.data) // modifiedCount
+
+        Swal.fire({
+            title: "Are you sure to report ?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes"
+          }).then((result) => {
+            if (result.isConfirmed) {
+                console.log(_id)
+                const reporterInfo = { name: user?.displayName, email: user?.email };
+                console.log('reported user:', reporterInfo)
+                  axiosSecure.patch(`/products/report/${_id}`, reporterInfo)
+                  .then(res=>{
+                      console.log('reported completed:', res.data) // modifiedCount
+                      if(res.data.modifiedCount > 0){
+                        Swal.fire({
+                            title: "Reported !",
+                            text: "Reported done",
+                            icon: "success"
+                          });
+                      }
+
+                  })
+            }
+          });
     }
 
 

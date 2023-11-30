@@ -1,14 +1,26 @@
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAuth from "../../../Hooks/useAuth";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import useUserRole from "../../../Hooks/useUserRole";
 // import { useLoaderData, useParams } from "react-router-dom";
 
 
 const AddProduct = () => {
     const {user} = useAuth();
+    const {userRole} = useUserRole();
+    const email = user.email ;
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure()
+    const navigate = useNavigate();
   
+    const length = userRole?.postInfo?.length
+    const isVerified = userRole.status
+     console.log(typeof length,isVerified);
 
+   
     const {
         register,
         handleSubmit,
@@ -25,7 +37,17 @@ const AddProduct = () => {
 
 
     const handleSubmitForm = async (data) => {
-        // console.log(data.date)
+         console.log(data.date)
+        if(isVerified === undefined && length === 1 ){
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You post limit is ended.Get premium to extend the limit!",
+               
+              });
+              navigate('/dashboard/payment')
+              return ;
+        }
 
         const dateString = data.date;
         const dateObject = new Date(dateString);
@@ -36,9 +58,10 @@ const AddProduct = () => {
         const res = await axiosPublic.post(img_hosting_api, imageFile, {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
-        console.log('image hosting result data for review:', res.data.success);
+        console.log('image hosting result data for review:', res.data);
+
         const img = res.data.data.url
-            const date  = data.date;
+        const date  = data.date;
         const product = {
             title:data.title,
             uploader:user.email,
@@ -59,8 +82,23 @@ const AddProduct = () => {
         console.log(product)
 
         if(res.data.success){
-            const res = axiosPublic.post('/users-post/product',product)
-            console.log(res.data)
+            const res = await axiosSecure.post('/users-post/product',product)
+            console.log(res.data.insertedId);
+            if(res.data.insertedId){
+                const user ={post:1}
+                const updateUser = await axiosSecure.patch(`https://gadge-quest-server.vercel.app/update-user-paymentInfo/${email}`,user)
+                console.log('Update user post info:',updateUser.data)
+
+
+                navigate('/dashboard/myproducts')
+                Swal.fire({
+                    position: "top-center",
+                    icon: "success",
+                    title: "Successfully posted",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+            }
            
           }
 
@@ -130,23 +168,3 @@ const AddProduct = () => {
 
 export default AddProduct;
 
-
-
-
-
-// const imageFile = { image: data.image[0] }
-//         const res = await axiosPublic.post(img_hosting_api, imageFile, {
-//             headers: { 'Content-Type': 'multipart/form-data' }
-//         })
-
-//         console.log('image hosting result data for review:', res.data.data.url);
-//         data.image = res.data.data.url
-//         if (res.data.success) {
-//             const res = await axiosPublic.patch(`/products/${_id}`, data)
-//             console.log('for review:', res.data);
-            
-//             if (res.data.modifiedCount > 0) {
-//                 refetch();
-//             }
-
-//         }

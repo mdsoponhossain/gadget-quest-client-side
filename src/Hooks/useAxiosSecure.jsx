@@ -3,7 +3,7 @@ import useAuth from "./useAuth";
 import { useNavigate } from "react-router-dom";
 
 
-const axiosSecure = axios.create({ baseURL: "http://localhost:5000" })
+const axiosSecure = axios.create({ baseURL: "https://gadge-quest-server.vercel.app" })
 const useAxiosSecure = () => {
     const { handleSignOut } = useAuth();
     const navigate = useNavigate();

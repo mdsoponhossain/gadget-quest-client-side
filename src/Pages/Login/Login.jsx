@@ -1,6 +1,8 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from "../../Components/Shared/SocialLogin/SocialLogin";
 import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
+import { useState } from "react";
 
 
 const Login = () => {
@@ -8,19 +10,31 @@ const Login = () => {
     const { handleSignIn } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
+    const [error, setError] = useState('')
 
     const handleLogin = e => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(email, password);
+        setError('')
         handleSignIn(email, password)
             .then(result => {
                 console.log(result.user);
-                navigate(location?.state ? location.state : '/')
+                Swal.fire({
+                    position: "top-center",
+                    icon: "success",
+                    title: "Your login is successfully done",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+
+                  navigate(location?.state ? location.state : '/')
+
             })
             .catch(error => {
                 console.log(error.message)
+                setError(error.message)
             })
     }
 
@@ -38,6 +52,9 @@ const Login = () => {
                     </label>
                     <input type="email" name="email" placeholder="email" className="input input-bordered" required />
                 </div>
+                <span className="text-red-700 font-medium text-sm">
+                    {error}
+                </span>
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Password</span>

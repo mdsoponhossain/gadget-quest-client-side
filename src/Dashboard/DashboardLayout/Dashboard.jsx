@@ -5,7 +5,7 @@ import useUserRole from "../../Hooks/useUserRole";
 const Dashboard = () => {
    
     const {userRole} = useUserRole();
-    console.log('user role is:',userRole)
+    // console.log('user role is:',userRole)
    
     const dashboardMenu = <>
 
@@ -38,6 +38,7 @@ const Dashboard = () => {
                 
                 <li><NavLink to='/dashboard/myProfile'>My Profile</NavLink></li>
                 <li><NavLink to='/dashboard/manageUsers'>Manage Users</NavLink></li>
+                <li><NavLink to='/dashboard/statics'>Statics</NavLink></li>
                 <li><NavLink to='/dashboard/manageCoupon'>Manage Coupons</NavLink></li>
                 <li><NavLink to='/'>Go Home</NavLink></li>
 
@@ -54,9 +55,9 @@ const Dashboard = () => {
 
 
     return (
-        <div className="max-w-7xl mx-auto border-4 ">
+        <div className="max-w-7xl mx-auto w-[100%]  ">
             <h3 className="text-3xl bg-green-300 p-2 mx-2 text-center md:text-5xl font-bold">Dashboard</h3>
-            <div className="flex w-full gap-3 md:gap-5 p-2">
+            <div className="flex w-full md:gap-2 p-2">
                 <div className="border-4 w-3/12 min-h-screen bg-green-300">
                     <ul className="menu">
                         {dashboardMenu}
@@ -64,7 +65,7 @@ const Dashboard = () => {
 
                 </div>
 
-                <div className="border-4 flex-1 h-screen overflow-y-auto bg-[#E6E6AC]">
+                <div className="border-4 flex-1 h-screen overflow-y-auto bg-[#f3f3e3]">
                     <Outlet></Outlet>
                 </div>
             </div>
