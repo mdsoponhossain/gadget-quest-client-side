@@ -15,4 +15,4 @@
 -Jwt is implemented and secure both the private route and server side api ;
 - Google and Email password Authentication is implemented using firebase;
 - react js is implemented
--react router is implemented
+- react router is implemented
