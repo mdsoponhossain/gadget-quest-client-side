@@ -1,14 +1,16 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import { FaToggleOff, FaToggleOn } from "react-icons/fa";
+import { useState } from "react";
 
 
 
 const Navbar = () => {
 
-    const { user, handleSignOut } = useAuth();
+    const { user, handleSignOut,handleThemeSwitch } = useAuth();
     console.log('user from the navbar:', user)
-
+        const [toggle, setToggle] = useState(true)
     const handleLogout = () => {
 
         Swal.fire({
@@ -54,7 +56,7 @@ const Navbar = () => {
 
 
     return (
-        <div className="drawer   lg:max-w-7xl lg:mx-auto">
+        <div className="drawer  dark:bg-black dark:text-green-700  lg:max-w-7xl lg:mx-auto">
             <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content flex flex-col">
                 {/* Navbar */}
@@ -72,6 +74,15 @@ const Navbar = () => {
                             <div className="flex items-center lg:ml-12 ">
                                 <img className="w-12 h-12" src="https://i.ibb.co/C9vq4Pj/logo-tech-modified.png" alt="" />
                                 <div className="flex-1 px-2 mx-2 md:text-xl text-bold text-[#1b776c]">GadgetQuest</div>
+                            </div>
+                            <div>
+                                <button onClick={handleThemeSwitch} className="btn">
+                                    <span onClick={()=>setToggle(!toggle)}>
+                                        {
+                                            toggle === true ? <FaToggleOff className="text-3xl"></FaToggleOff> : <FaToggleOn className="text-3xl"></FaToggleOn>
+                                        }
+                                    </span>
+                                    </button>
                             </div>
                             <div className="flex-none hidden lg:block">
                                 <ul className="menu menu-horizontal">
@@ -111,7 +122,7 @@ const Navbar = () => {
                 {/* Content */}
                 <Outlet></Outlet>
             </div>
-            <div className="drawer-side z-20">
+            <div className="drawer-side mt-16 z-20">
                 <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
                 <ul className="menu p-4 w-80 min-h-full bg-base-200">
                     {/* Sidebar content here */}

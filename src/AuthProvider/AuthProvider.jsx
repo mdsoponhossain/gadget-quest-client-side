@@ -14,6 +14,32 @@ const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const axiosPublic = useAxiosPublic();
+
+    // data-theme set up ;
+    const [theme, setTheme] = useState(null);
+    useEffect(()=>{
+        if(window.matchMedia('(prefers-color-schema:dark)').matches){
+            setTheme('dark')
+        }
+        else{
+            setTheme('light');
+        }
+    },[]);
+
+
+    useEffect(()=>{
+        if(theme === 'dark' ){
+            document.documentElement.classList.add('dark');
+        }
+        else{
+            document.documentElement.classList.remove('dark');
+        }
+    },[theme]);
+    const handleThemeSwitch =()=>{
+        setTheme(theme === 'dark' ? 'light' : 'dark');
+    }
+
+
   
 
     const handleSignUp = (email,password)=>{
@@ -90,7 +116,8 @@ const AuthProvider = ({children}) => {
         loading,
         googleLoginHandle,
         facebookLoginSetup,
-        gitHubLoginSetup
+        gitHubLoginSetup,
+        handleThemeSwitch
     };
 
 
